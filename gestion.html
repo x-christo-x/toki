@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="gestion.css">
+    <script src="gestion.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TokiFiesta - Panel de Administrador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Header Superior -->
+    <header class="admin-header">
+        <div class="header-brand">
+            Toki<span>Fiesta</span> <small style="font-size: 0.8rem; margin-left: 8px; opacity: 0.8;">Admin Panel</small>
+        </div>
+        <div class="header-nav">
+            <a href="index.html" title="Ir al sitio principal">
+                <i class="fas fa-home"></i> Sitio Principal
+            </a>
+            <a href="index.html" title="Cerrar sesión">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </div>
+    </header>
+    
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-small">TK</div>
+            <div class="logo-text">TokiFiesta</div>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-item active" data-section="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-item" data-section="clients">
+                <i class="fas fa-user"></i>
+                <span>Clientes</span>
+            </a>
+            <a href="#" class="sidebar-item" data-section="services">
+                <i class="fas fa-shoe-prints"></i>
+                <span>Servicios</span>
+            </a>
+            <a href="#" class="sidebar-item" data-section="reports">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </div>
+        <div class="sidebar-footer">
+            <a href="#" class="sidebar-item" data-section="config">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="user-info">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="profile">
+                    <img src="https://imgur.com/NyKLG43.png" alt="Admin">
+                    <span>Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+            <div class="section-header">
+                <h2>Dashboard</h2>
+                <p>Bienvenido al panel de control de TokiFiesta</p>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Clientes</h3>
+                        <p id="numeros">215</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Servicios</h3>
+                        <p id="numeros2">312</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Citas Pendientes</h3>
+                        <p id="numeros3">18</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Completados</h3>
+                        <p id="numeros4">294</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-section">
+                <div class="section-header">
+                    <h3>Solicitudes Recientes</h3>
+                    <button class="view-all">Ver todas</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>María López</td>
+                                <td>Limpieza Profunda</td>
+                                <td>22/06/2025</td>
+                                <td><span class="status pending">Pendiente</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Carlos Ramírez</td>
+                                <td>Restauración</td>
+                                <td>21/06/2025</td>
+                                <td><span class="status in-process">En proceso</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ana Martínez</td>
+                                <td>Limpieza Básica</td>
+                                <td>20/06/2025</td>
+                                <td><span class="status completed">Completado</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Juan Pérez</td>
+                                <td>Desodorización</td>
+                                <td>19/06/2025</td>
+                                <td><span class="status completed">Completado</span></td>
+                                <td>
+                                    <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clients Section -->
+        <div id="clients" class="section">
+            <div class="section-header">
+                <h2>Gestión de Clientes</h2>
+                <button class="primary-btn" id="addClientBtn"><i class="fas fa-plus"></i> Nuevo Cliente</button>
+                <a href="mapa.html"><button class="primary-btn" id="ubiClientBtn"><i class="fas fa-plus"></i> Ver Ubicaciones</button></a>
+            </div>
+            
+            <!-- CRUD Form (initially hidden) -->
+            <div class="crud-form" id="clientForm">
+                <div class="form-header">
+                    <h3>Añadir Nuevo Cliente</h3>
+                    <button class="close-form"><i class="fas fa-times"></i></button>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="clientName">Nombre Completo</label>
+                        <input type="text" id="clientName" placeholder="Nombre y apellidos">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientPhone">Teléfono</label>
+                            <input type="tel" id="clientPhone" placeholder="+591 xxxxxxxx">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientEmail">Correo</label>
+                            <input type="email" id="clientEmail" placeholder="correo@ejemplo.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="clientService">Servicio</label>
+                            <select id="clientService">
+                                <option value="">Seleccionar servicio</option>
+                                <option value="limpieza-basica">Limpieza Básica</option>
+                                <option value="limpieza-profunda">Limpieza Profunda</option>
+                                <option value="restauracion">Restauración</option>
+                                <option value="desodorizacion">Desodorización</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientDate">Fecha</label>
+                            <input type="date" id="clientDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientStatus">Estado</label>
+                        <select id="clientStatus">
+                            <option value="pending">Pendiente</option>
+                            <option value="in-process">En Proceso</option>
+                            <option value="completed">Completado</option>
+                            <option value="cancelled">Cancelado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientNotes">Notas</label>
+                        <textarea id="clientNotes" placeholder="Detalles adicionales"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="secondary-btn cancel-btn">Cancelar</button>
+                        <button type="submit" class="primary-btn">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Client List -->
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Servicio</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>María López</td>
+                            <td>+591 78965412</td>
+                            <td>maria@email.com</td>
+                            <td>Limpieza Profunda</td>
+                            <td>22/06/2025</td>
+                            <td><span class="status pending">Pendiente</span></td>
+                            <td>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Carlos Ramírez</td>
+                            <td>+591 65478932</td>
+                            <td>carlos@email.com</td>
+                            <td>Restauración</td>
+                            <td>21/06/2025</td>
+                            <td><span class="status in-process">En proceso</span></td>
+                            <td>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ana Martínez</td>
+                            <td>+591 78541236</td>
+                            <td>ana@email.com</td>
+                            <td>Limpieza Básica</td>
+                            <td>20/06/2025</td>
+                            <td><span class="status completed">Completado</span></td>
+                            <td>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Juan Pérez</td>
+                            <td>+591 65987412</td>
+                            <td>juan@email.com</td>
+                            <td>Desodorización</td>
+                            <td>19/06/2025</td>
+                            <td><span class="status completed">Completado</span></td>
+                            <td>
+                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Services Section -->
+        <div id="services" class="section">
+            <div class="section-header">
+                <h2>Servicios Ofrecidos</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Limpieza Básica</h3>
+                        <p>Remueve polvo y suciedad superficial</p>
+                        <div class="service-stats">
+                            <div class="stat">
+                                <span class="stat-value">42</span>
+                                <span class="stat-label">Clientes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">Bs. 10</span>
+                                <span class="stat-label">Precio</span>
+                            </div>
+                        </div>
+                        <button class="service-action-btn">Editar Servicio</button>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-spray-can"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Limpieza Profunda</h3>
+                        <p>Incluye suelas, cordones y desinfectación</p>
+                        <div class="service-stats">
+                            <div class="stat">
+                                <span class="stat-value">56</span>
+                                <span class="stat-label">Clientes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">Bs. 20</span>
+                                <span class="stat-label">Precio</span>
+                            </div>
+                        </div>
+                        <button class="service-action-btn">Editar Servicio</button>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Restauración</h3>
+                        <p>Reparación de desgaste, pintura y detalles</p>
+                        <div class="service-stats">
+                            <div class="stat">
+                                <span class="stat-value">28</span>
+                                <span class="stat-label">Clientes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">Bs. 25</span>
+                                <span class="stat-label">Precio</span>
+                            </div>
+                        </div>
+                        <button class="service-action-btn">Editar Servicio</button>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wind"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Desodorización</h3>
+                        <p>Elimina malos olores con tecnología antibacteriana</p>
+                        <div class="service-stats">
+                            <div class="stat">
+                                <span class="stat-value">34</span>
+                                <span class="stat-label">Clientes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">Bs. 15</span>
+                                <span class="stat-label">Precio</span>
+                            </div>
+                        </div>
+                        <button class="service-action-btn">Editar Servicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Reports Section -->
+        <div id="reports" class="section">
+            <div class="section-header">
+                <h2>Reportes y Estadísticas</h2>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart">
+                    <h3>Servicios por Mes</h3>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Gráfico de servicios</p>
+                    </div>
+                </div>
+                
+                <div class="chart">
+                    <h3>Ingresos por Servicio</h3>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-pie"></i>
+                        <p>Gráfico de ingresos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

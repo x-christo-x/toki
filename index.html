@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="login-container">
+    <div class="avatar">
+      <img src="https://i.imgur.com/NyKLG43.png" alt="Foto de usuario" />
+    </div>
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="usuario">Usuario (nombre)</label>
+        <input type="text" id="usuario" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" required />
+      </div>
+      <p id="errorMsg" style="color:red; display:none; margin-bottom:1rem;"></p>
+      <button type="submit" class="btn-login">Ingresar</button>
+    </form>
+  </section>
+
+  <!-- Firebase SDKs v8 (namespaced) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <!-- Tu lógica JS separada -->
+  <script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráficas - TokiFiesta</title>
+  <link rel="stylesheet" href="gráficas.css">
+  <script defer src="gráficas.js"></script>
+  <!-- Incluyendo Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <img src="https://i.imgur.com/NyKLG43.png" alt="Logo TokiFiesta" class="logo">
+    <h1 class="titulo">TokiFiesta</h1>
+    <div class="menu-hamburguesa" id="menu-toggle">
+        <div class="linea"></div>
+        <div class="linea"></div>
+        <div class="linea"></div>
+      </div>
+      <nav id="menu" class="menu oculto">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="reservas.html">Reservas</a></li>
+          <li><a href="graficas.html">Graficas</a></li>
+          <li><a href="publicidad.html">Publicidad</a></li>
+          <li><a href="gestion.html">Gestion</a></li>
+        </ul>
+      </nav>
+  </header>
+
+  <main>
+    <!-- Sección de Gráficas -->
+    <section class="contenedor">
+      <h2>Gráficas</h2>
+      <div class="grafica-box">
+        <h3>Gráfico Lineal</h3>
+        <canvas id="graficaLineal"></canvas>
+      </div>
+      <div class="grafica-box">
+        <h3>Gráfico de Torta</h3>
+        <canvas id="graficaTorta"></canvas>
+      </div>
+      <div class="grafica-box">
+        <h3>Gráfico Escalonado</h3>
+        <canvas id="graficaEscalon"></canvas>
+      </div>
+    </section>
+  </main>  
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokiFiesta</title>
+  <link rel="stylesheet" href="inicio.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo-titulo">
+      <h1>Toki<span class="resaltar">Fiesta</span></h1>
+    </div>
+    <div class="menu-hamburguesa" id="menu-toggle">
+      <div class="linea"></div>
+      <div class="linea"></div>
+      <div class="linea"></div>
+    </div>
+    <nav id="menu" class="menu oculto">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="reservas.html">Reservas</a></li>
+        <li><a href="graficas.html">Graficas</a></li>
+        <li><a href="publicidad.html">Publicidad</a></li>
+        <li><a href="gestion.html">Gestion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="contenido">
+    <img src="https://i.imgur.com/NyKLG43.png" alt="Logo TokiFiesta" class="logo-principal" />
+    <p class="subtitulo">Tu noche empieza acá</p>
+    <button id="estado-btn" class="estado-btn off">Estado: cerrado</button>
+  </main>
+  <!-- Tu lógica -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+</body>
+</html>

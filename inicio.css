@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #18036D;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.logo-titulo h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #FF009D;
+}
+
+.logo-titulo .resaltar {
+  color: #FFFFFF;
+}
+
+.menu-hamburguesa {
+  width: 30px;
+  cursor: pointer;
+}
+
+.linea {
+  height: 4px;
+  background-color: #FFFFFF;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+.menu {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #8000FF;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.menu.oculto {
+  display: none;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #48C9B0;
+}
+
+.contenido {
+  padding: 40px 20px;
+}
+
+.logo-principal {
+  max-width: 250px;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #FF009D;
+}
+
+.subtitulo {
+  margin-top: 20px;
+  font-size: 20px;
+  color: #AA48C9B0;
+}
+
+.estado-btn {
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.estado-btn.on {
+  background-color: #28a745; /* verde (abierto) */
+}
+
+.estado-btn.off {
+  background-color: #dc3545; /* rojo (cerrado) */
+}

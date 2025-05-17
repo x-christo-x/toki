@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservas - TokiFiesta</title>
+  <link rel="stylesheet" href="reserva.css">
+  <script defer src="reserva.js"></script>
+</head>
+<body>
+  <header>
+    <img src="https://i.imgur.com/NyKLG43.png" alt="Logo TokiFiesta" class="logo">
+    <h1 class="titulo">TokiFiesta</h1>
+    <div class="menu-hamburguesa" id="menu-toggle">
+      <div class="linea"></div>
+      <div class="linea"></div>
+      <div class="linea"></div>
+    </div>
+    <nav id="menu" class="menu oculto">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="reservas.html">Reservas</a></li>
+        <li><a href="graficas.html">Graficas</a></li>
+        <li><a href="publicidad.html">Publicidad</a></li>
+        <li><a href="gestion.html">Gestion</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="contenedor">
+      <h2>Reservas</h2>
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Laura</td>
+            <td>5</td>
+            <td>2025-05-10</td>
+            <td>21:00</td>
+          </tr>
+          <!-- Puedes agregar más filas dinámicamente -->
+        </tbody>
+      </table>
+    </section>
+
+    <section class="contenedor">
+      <h2>Reseñas</h2>
+      <table class="tabla">
+        <thead>
+          <tr>
+            <th>Comentario</th>
+            <th>Calificación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>¡Excelente ambiente!</td>
+            <td class="estrellas" data-score="4"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

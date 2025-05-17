@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #000000;
+  color: white;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #18036D;
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.titulo {
+  font-size: 34px;
+  font-weight: bold;
+  text-align: left;
+  color: #FF009D;
+  margin: 0;
+}
+
+.menu-hamburguesa {
+  width: 30px;
+  cursor: pointer;
+}
+
+.linea {
+  height: 4px;
+  background-color: #FFFFFF;
+  margin: 5px 0;
+  border-radius: 2px;
+}
+
+.menu {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: #8000FF;
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.menu.oculto {
+  display: none;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #48C9B0;
+}
+
+.contenido {
+  padding: 40px 20px;
+}
+
+main {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px; /* Espacio entre los contenedores */
+}
+
+.contenedor {
+  border: 2px solid yellow;
+  padding: 20px;
+  border-radius: 10px;
+  width: 45%; /* Ajustado para que entren dos por fila */
+  min-width: 300px;
+  max-width: 500px;
+  box-sizing: border-box;
+  background-color: #111111;
+}
+
+.contenedor h2 {
+  margin-top: 0;
+  color: #FF009D;
+  text-align: center;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.tabla th, .tabla td {
+  border: 2px solid #FF009D;
+  padding: 10px;
+  text-align: center;
+}
+
+.estrellas::before {
+  content: "★★★★★";
+  color: gray;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
+
+.estrellas[data-score="1"]::before { color: gold; content: "★☆☆☆☆"; }
+.estrellas[data-score="2"]::before { color: gold; content: "★★☆☆☆"; }
+.estrellas[data-score="3"]::before { color: gold; content: "★★★☆☆"; }
+.estrellas[data-score="4"]::before { color: gold; content: "★★★★☆"; }
+.estrellas[data-score="5"]::before { color: gold; content: "★★★★★"; }
