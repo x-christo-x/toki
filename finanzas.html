@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finanzas / Contabilidad</title>
+  <link rel="stylesheet" href="finanzas.css" />
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo-principal">
+      <img src="https://i.imgur.com/NyKLG43.png" alt="Logo del Local">
+    </div>
+    <!-- Título de sección en rosa debajo del logo -->
+    <div class="section-title">Finanzas / Contabilidad</div>
+
+    <ul class="menu">
+      <li><a href="graficas.html">Dashboard</a></li>
+      <li><a href="gestion.html">Ventas</a></li>
+      <li><a href="inventario.html">Inventario</a></li>
+      <!-- Ya no marcamos activo aquí -->
+      <li><a href="reservas.html">Reservas</a></li>
+      <li><a href="clientes.html">Clientes</a></li>
+      <li><a href="configuracion.html">Configuración</a></li>
+    </ul>
+  </nav>
+
+  <!-- Eliminamos el header cian -->
+
+  <main class="main-content">
+    <!-- Resumen rápido -->
+    <section class="summary-cards">
+      <div class="card ingresos">
+        <h2>Ingresos</h2>
+        <p class="amount">$12,345</p>
+      </div>
+      <div class="card gastos">
+        <h2>Gastos</h2>
+        <p class="amount">$4,567</p>
+      </div>
+      <div class="card balance">
+        <h2>Balance</h2>
+        <p class="amount">$7,778</p>
+      </div>
+    </section>
+
+    <!-- Tabla de transacciones -->
+    <section class="report-section">
+      <h2>Reporte Mensual</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025-05-01</td>
+            <td>Venta producto A</td>
+            <td>Ingreso</td>
+            <td>$1,200</td>
+          </tr>
+          <tr>
+            <td>2025-05-02</td>
+            <td>Compra insumos</td>
+            <td>Gasto</td>
+            <td>$800</td>
+          </tr>
+          <tr>
+            <td>2025-05-03</td>
+            <td>Venta servicio B</td>
+            <td>Ingreso</td>
+            <td>$2,000</td>
+          </tr>
+          <tr>
+            <td>2025-05-04</td>
+            <td>Pago renta</td>
+            <td>Gasto</td>
+            <td>$1,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

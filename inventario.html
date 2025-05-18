@@ -3,83 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ventas</title>
-  <link rel="stylesheet" href="gestion.css" />
+  <title>Inventarios</title>
+  <link rel="stylesheet" href="inventario.css" />
 </head>
 <body>
   <nav class="sidebar">
     <div class="logo-principal">
       <img src="https://i.imgur.com/NyKLG43.png" alt="Logo del Local">
     </div>
-    <div class="section-title">Ventas</div>
+    <div class="section-title">Inventarios</div>
     <ul class="menu">
       <li><a href="graficas.html">Dashboard</a></li>
       <li><a href="gestion.html">Ventas</a></li>
       <li><a href="inventario.html">Inventario</a></li>
       <li><a href="reservas.html">Reservas</a></li>
-      <li><a href="clientes.html">Clientes</a></li>
       <li><a href="configuracion.html">Configuración</a></li>
     </ul>
   </nav>
 
   <main class="main-content">
-    <!-- Resumen rápido de ventas -->
+    <!-- Resumen rápido de inventario -->
     <section class="summary-cards">
-      <div class="card ventas-hoy">
-        <h2>Ventas Hoy</h2>
-        <p class="amount">$2,300</p>
+      <div class="card total-productos">
+        <h2>Total Productos</h2>
+        <p class="amount">150</p>
       </div>
-      <div class="card ventas-mes">
-        <h2>Ventas Mes</h2>
-        <p class="amount">$45,000</p>
+      <div class="card stock-bajo">
+        <h2>Stock Bajo</h2>
+        <p class="amount">12</p>
       </div>
-      <div class="card total-facturas">
-        <h2>Total Facturas</h2>
-        <p class="amount">120</p>
+      <div class="card sin-stock">
+        <h2>Sin Stock</h2>
+        <p class="amount">3</p>
       </div>
     </section>
 
-    <!-- Tabla de ventas -->
+    <!-- Tabla detallada de inventario -->
     <section class="report-section">
-      <h2>Historial de Ventas</h2>
+      <h2>Inventario Detallado</h2>
       <table class="report-table">
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Cliente</th>
             <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Total</th>
+            <th>Categoría</th>
+            <th>Stock Actual</th>
+            <th>Umbral Mínimo</th>
+            <th>Proveedor</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>2025-05-10</td>
-            <td>Juan Pérez</td>
             <td>Producto A</td>
-            <td>2</td>
-            <td>$400</td>
+            <td>Bebidas</td>
+            <td>20</td>
+            <td>5</td>
+            <td>Proveedor X</td>
           </tr>
           <tr>
-            <td>2025-05-11</td>
-            <td>Ana Gómez</td>
             <td>Producto B</td>
-            <td>1</td>
-            <td>$200</td>
+            <td>Insumos</td>
+            <td>8</td>
+            <td>10</td>
+            <td>Proveedor Y</td>
           </tr>
           <tr>
-            <td>2025-05-12</td>
-            <td>Carlos Ruiz</td>
             <td>Producto C</td>
+            <td>Postres</td>
+            <td>0</td>
             <td>3</td>
-            <td>$750</td>
+            <td>Proveedor Z</td>
           </tr>
           <tr>
-            <td>2025-05-13</td>
-            <td>María López</td>
             <td>Producto D</td>
-            <td>1</td>
-            <td>$150</td>
+            <td>Bebidas</td>
+            <td>50</td>
+            <td>10</td>
+            <td>Proveedor X</td>
           </tr>
         </tbody>
       </table>

@@ -80,9 +80,9 @@ body {
   color: var(--white);
   text-align: center;
 }
-.card.ventas-hoy       { background-color: var(--cian); }
-.card.ventas-mes       { background-color: var(--rosa); }
-.card.total-facturas   { background-color: var(--violeta); }
+.card.total-productos { background-color: var(--cian); }
+.card.stock-bajo      { background-color: var(--rosa); }
+.card.sin-stock       { background-color: var(--violeta); }
 .card h2 {
   margin-bottom: 0.5rem;
 }
