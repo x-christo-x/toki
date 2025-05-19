@@ -1,0 +1,153 @@
+/* ======== BASE / NAVBAR / SIDEBAR ======== */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background-color: #0D1117;
+    color: #F0F8FF;
+    background-image: linear-gradient(135deg, #23074d, #cc5333);
+}
+
+
+
+.menu-toggle {
+    font-size: 1.5rem;
+    background: none;
+    color: #C9D1D9;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.menu-toggle:hover {
+    background-color: #21262D;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100%;
+    width: 280px;
+    background-color: rgba(83, 33, 122, 0.9);
+    color: #C9D1D9;
+    padding-top: 1rem;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: 3px 0 7px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.logo-principal {
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid #30363D;
+}
+
+.logo-principal img {
+    width: 70%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.section-title {
+    padding: 1rem 2rem;
+    color: #7B8794;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: 1rem 2rem;
+    color: #C9D1D9;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.menu li a:hover {
+    background-color: rgba(204, 83, 51, 0.7);
+    color: #fff;
+}
+
+/* ======== MAIN CONTENT ======== */
+.main-content {
+    padding: 2rem;
+    margin-left: 0;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.main-content.active {
+    margin-left: 280px;
+}
+
+/* ======== GRÁFICOS ======== */
+.graphs-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.graph-card {
+    background-color: rgba(28, 33, 40, 0.8);
+    padding: 1.5rem;
+    border-left: 5px solid #F9A825;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.graph-card h2 {
+    margin: 0 0 1rem;
+    color: #C9D1D9;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Asegura que los canvas escalen bien */
+.graph-card canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem;
+    }
+    .header h1 {
+        font-size: 1.2rem;
+    }
+    .menu-toggle {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .graphs-section {
+        grid-template-columns: 1fr;
+    }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header h1 {
+        font-size: 1rem;
+    }
+    .menu li a {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+}

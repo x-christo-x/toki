@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gráficos del Local</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style_graficos.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- Navbar existente -->
+  <header class="header">
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+  </header>
+
+  <!-- Sidebar existente -->
+  <nav id="sidebar" class="sidebar">
+    <div class="logo-principal">
+      <img src="https://i.imgur.com/kkBz66t_d.jpeg" alt="Logo del Local">
+      <h1>La Rota Carlota</h1>
+    </div>
+    <div class="section-title">Navegación</div>
+    <ul class="menu">
+      <li><a href="index.html">Panel de Administrador</a></li>
+      <li><a href="Estado.html">Estado</a></li>
+      <li><a href="Graficos.html" class="active" aria-current="page">Gráficos</a></li>
+      <li><a href="publicaciones.html">Publicaciones</a></li>
+      <li><a href="#">Cerrar sesión</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contenido principal: SOLO 2 GRÁFICOS -->
+  <main class="main-content">
+    <section class="graphs-section">
+      <div class="graph-card">
+        <h2>Reservas Mensuales</h2>
+        <canvas id="reservasBar"></canvas>
+      </div>
+      <div class="graph-card">
+        <h2>Ganancias Semanales</h2>
+        <canvas id="gananciasLine"></canvas>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

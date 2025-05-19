@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estado del Local</title>
+  <link rel="stylesheet" href="css/style_estado.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- Navbar existente -->
+  <header class="header">
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+  </header>
+
+  <nav id="sidebar" class="sidebar">
+    <div class="logo-principal">
+      <img src="https://i.imgur.com/kkBz66t_d.jpeg" alt="Logo del Local">
+      <h1>La Rota Carlota</h1>
+    </div>
+    <div class="section-title">Navegación</div>
+    <ul class="menu">
+      <li><a href="index.html">Panel de Administrador</a></li>
+      <li><a href="Estado.html">Estado</a></li>
+      <li><a href="Graficos.html">Gráficos</a></li>
+      <li><a href="publicaciones.html">Publicaciones</a></li>
+      <li><a href="#">Cerrar sesión</a></li>
+    </ul>
+  </nav>
+
+  <!-- Estado del Local -->
+  <main class="estado-container">
+    <div class="estado-card">
+      <img src="https://i.imgur.com/kkBz66t_d.jpeg?maxwidth=520&shape=thumb&fidelity=high" alt="Logo Tokifiesta" class="estado-logo" />
+      <h2 class="estado-text">Tu noche empieza acá</h2>
+    <button id="estado-btn" class="estado-btn cerrado">Estado: cerrado</button>
+    </div>
+  </main>
+<!-- Conectar a firebase-->
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="js/firebase.js"></script>
+</body>
+</html>

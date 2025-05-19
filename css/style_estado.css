@@ -1,0 +1,175 @@
+/* ======== BASE ======== */
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    background-color: #0D1117;
+    color: #F0F8FF;
+    background-image: linear-gradient(135deg, #23074d, #cc5333);
+}
+
+.header {
+    background-color: rgba(35, 7, 77, 0.8);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(204, 83, 51, 0.5);
+}
+
+.menu-toggle {
+    font-size: 1.5rem;
+    background: none;
+    color: #C9D1D9;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.menu-toggle:hover {
+    background-color: #21262D;
+}
+
+/* ======== SIDEBAR ======== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100%;
+    width: 280px;
+    background-color: rgba(83, 33, 122, 0.9);
+    color: #C9D1D9;
+    padding-top: 1rem;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: 3px 0 7px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.logo-principal {
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid #30363D;
+}
+
+.logo-principal img {
+    width: 70%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.section-title {
+    padding: 1rem 2rem;
+    color: #7B8794;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li a {
+    display: block;
+    padding: 1rem 2rem;
+    color: #C9D1D9;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.menu li a:hover {
+    background-color: rgba(204, 83, 51, 0.7);
+    color: #fff;
+}
+
+/* === ESTADO DEL LOCAL === */
+.estado-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+  padding: 2rem;
+  text-align: center;
+}
+
+.estado-card {
+  background-color: rgba(28, 33, 40, 0.8);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(249, 168, 37, 0.5);
+  max-width: 400px;
+  width: 100%;
+  border-left: 5px solid #F9A825;
+}
+
+.estado-logo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  box-shadow: 0 0 30px #f0f;
+  margin-bottom: 1rem;
+}
+
+.estado-text {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #b388ff;
+}
+
+.estado-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.estado-btn.abierto {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.estado-btn.cerrado {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.estado-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 500px) {
+  .estado-logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .estado-btn {
+    width: 100%;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 1.1rem;
+  }
+
+  .menu li a {
+    font-size: 0.9rem;
+  }
+}

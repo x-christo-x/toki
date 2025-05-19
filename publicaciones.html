@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Publicaciones</title>
+  <!-- CSS base y navbar/sidebar -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Estilos específicos -->
+  <link rel="stylesheet" href="css/style_publicaciones.css" />
+  <!-- JS -->
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- Navbar existente -->
+  <header class="header">
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <button id="menu-toggle2" class="menu-toggle2">➕</button>
+  </header>
+
+  <!-- Sidebar existente -->
+  <nav id="sidebar" class="sidebar">
+    <div class="logo-principal">
+      <img src="https://i.imgur.com/kkBz66t_d.jpeg" alt="Logo del Local">
+      <h1>La Rota Carlota</h1>
+    </div>
+    <div class="section-title">Navegación</div>
+    <ul class="menu">
+      <li><a href="index.html">Panel de Administrador</a></li>
+      <li><a href="Estado.html">Estado</a></li>
+      <li><a href="Graficos.html">Gráficos</a></li>
+      <li><a href="publicaciones.html" class="active" aria-current="page">Publicaciones</a></li>
+      <li><a href="#">Cerrar sesión</a></li>
+    </ul>
+  </nav>
+  <nav id="sidebar2" class="sidebar2">
+    <div class="section-title">Publicaciones</div>
+          <!-- Formulario de nueva publicación -->
+          <form id="pub-form" class="pub-form">
+            <div class="form-group">
+              <label for="pub-img-url">URL de imagen</label>
+              <input 
+                type="url" 
+                id="pub-img-url" 
+                placeholder="https://ejemplo.com/imagen.jpg" 
+                required 
+              />
+            </div>
+            <div class="preview-container">
+              <span>Vista previa:</span>
+              <img id="pub-preview-img" alt="Preview" hidden />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn guardar">Guardar</button>
+              <button type="button" id="pub-cancel" class="btn cancelar">Cancelar</button>
+            </div>
+          </form>
+  </nav>
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <section class="publicaciones-section">
+      <h2>Publicaciones</h2>
+      <!-- Listado de publicaciones (vacío inicialmente) -->
+      <div id="pub-list" class="pub-list"></div>
+    </section>
+  </main>
+</body>
+</html>

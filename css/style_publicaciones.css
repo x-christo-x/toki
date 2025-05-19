@@ -1,0 +1,147 @@
+/* === Publicaciones === */
+.publicaciones-section {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.publicaciones-section h2 {
+  color: #C9D1D9;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Formulario */
+.pub-form {
+  background-color: rgba(28, 33, 40, 0.8);
+  padding: 1.5rem;
+  border-left: 5px solid #F9A825;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: #C9D1D9;
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #30363D;
+  background-color: #161B22;
+  color: #F0F8FF;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Preview */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: #C9D1D9;
+}
+
+.preview-container img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 2px solid #F9A825;
+  margin-top: 0.5rem;
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.guardar {
+  background-color: #F9A825;
+  color: #000;
+}
+
+.btn.guardar:hover {
+  background-color: #ffd54f;
+}
+
+.btn.cancelar {
+  background-color: #c62828;
+  color: #fff;
+}
+
+.btn.cancelar:hover {
+  background-color: #e53935;
+}
+
+/* Listado de publicaciones */
+.pub-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.pub-card {
+  background-color: rgba(28, 33, 40, 0.8);
+  border-left: 5px solid #58A6FF;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.pub-card img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+
+.pub-card .pub-actions {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pub-card .pub-actions button {
+  background: none;
+  border: none;
+  color: #58A6FF;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pub-card .pub-actions button:hover {
+  text-decoration: underline;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+  }
+  .form-actions .btn {
+    width: 100%;
+  }
+}
