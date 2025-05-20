@@ -7,30 +7,33 @@ const firebaseConfig = {
     messagingSenderId: "485879781556",
     appId: "1:485879781556:web:b9a13d1381d22ba49e5fe1"
   };
+
+if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-  
-  // Referencia al servicio de Auth
-  const auth = firebase.auth();
-  
-  // Comprueba si hay usuario; si no, redirige al login
-  auth.onAuthStateChanged(user => {
-    if (!user) {
-      window.location.href = 'index.html';
-    }
-  });
-  
-  // Captura el click en “Cerrar sesión”
-  document.getElementById('logout')
-    .addEventListener('click', function(e) {
+}
+const auth = firebase.auth();
+
+// Listener: Detecta en tiempo real si el usuario NO está logueado y redirige
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.replace('index.html');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logout');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function(e) {
       e.preventDefault();
       auth.signOut()
         .then(() => {
-          // al cerrar, vuelve al login
-          window.location.href = 'index.html';
+          // Redirige a la pantalla intermedia de "Cerrando sesión..."
+          window.location.replace('cerrar.html');
         })
         .catch(err => {
           console.error('Error al cerrar sesión:', err);
           alert('No se pudo cerrar sesión. Intenta de nuevo.');
         });
     });
-    
+  }
+});

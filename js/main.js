@@ -7,12 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuBtn2 = document.getElementById('menu-toggle2');
   const sidebar2 = document.getElementById('sidebar2');
 
-  // Lógica para el sidebar izquierdo
   if (menuBtn && sidebar) {
     menuBtn.addEventListener('click', e => {
       e.stopPropagation();
       sidebar.classList.toggle('active');
-      // Al abrir, cierra el derecho si está abierto
       if (sidebar2) sidebar2.classList.remove('active');
     });
     document.addEventListener('click', ev => {
@@ -22,12 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Lógica para el sidebar derecho
   if (menuBtn2 && sidebar2) {
     menuBtn2.addEventListener('click', e => {
       e.stopPropagation();
       sidebar2.classList.toggle('active');
-      // Al abrir, cierra el izquierdo si está abierto
       if (sidebar) sidebar.classList.remove('active');
     });
     document.addEventListener('click', ev => {
@@ -39,14 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Lógica de Publicaciones (preview, creación, edición y eliminación) ---
   const form       = document.getElementById('pub-form');
+  const titleInput = document.getElementById('pub-title');
   const urlInput   = document.getElementById('pub-img-url');
+  const descInput  = document.getElementById('pub-desc');
   const previewImg = document.getElementById('pub-preview-img');
   const cancelBtn  = document.getElementById('pub-cancel');
   const list       = document.getElementById('pub-list');
   const MAX_PUBS   = 4;
 
-  if (form && urlInput && previewImg && cancelBtn && list) {
-    // Mostrar preview al introducir URL
+  if (form && titleInput && urlInput && descInput && previewImg && cancelBtn && list) {
+    // Preview al escribir URL
     urlInput.addEventListener('input', () => {
       const url = urlInput.value.trim();
       previewImg.src = url || '';
@@ -59,20 +57,19 @@ document.addEventListener('DOMContentLoaded', () => {
       previewImg.hidden = true;
     });
 
-    // Al enviar el formulario: crear tarjeta en el listado
+    // Crear tarjeta en el listado
     form.addEventListener('submit', ev => {
       ev.preventDefault();
+      const title = titleInput.value.trim();
       const url = urlInput.value.trim();
+      const desc = descInput.value.trim();
       const existing = list.querySelectorAll('.pub-card').length;
 
-      if (!url) return;                                // URL vacía => nada
-      if (existing >= MAX_PUBS) {                      // Límite alcanzado
+      if (!title || !url || !desc) return;
+      if (existing >= MAX_PUBS) {
         alert(`Solo puedes crear hasta ${MAX_PUBS} publicaciones.`);
         return;
       }
-
-      const num   = existing + 1;
-      const title = `Publicación ${num}`;
 
       // Construir la tarjeta
       const card = document.createElement('div');
@@ -80,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.innerHTML = `
         <h3 class="pub-title">${title}</h3>
         <img src="${url}" alt="${title}">
+        <p class="pub-desc">${desc}</p>
         <div class="pub-actions">
           <button class="edit">Editar</button>
           <button class="delete">Eliminar</button>
@@ -92,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       previewImg.hidden = true;
     });
 
-    // Delegación de eventos para Editar y Eliminar
+    // Editar y Eliminar
     list.addEventListener('click', ev => {
       const btn  = ev.target;
       const card = btn.closest('.pub-card');
@@ -101,26 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
       // Eliminar publicación
       if (btn.classList.contains('delete')) {
         card.remove();
-        // Opcional: reenumerar títulos tras eliminar
-        Array.from(list.children).forEach((c, i) => {
-          const h3 = c.querySelector('.pub-title');
-          if (h3) h3.textContent = `Publicación ${i+1}`;
-        });
       }
 
       // Editar publicación
       if (btn.classList.contains('edit')) {
         const img = card.querySelector('img');
-        const nuevaUrl = prompt('Introduce la nueva URL de la imagen:', img.src);
-        if (nuevaUrl) {
+        const titleElem = card.querySelector('.pub-title');
+        const descElem = card.querySelector('.pub-desc');
+        const nuevaUrl = prompt('Nueva URL de la imagen:', img.src);
+        const nuevoTitulo = prompt('Nuevo Título:', titleElem.textContent);
+        const nuevaDesc = prompt('Nueva Descripción:', descElem.textContent);
+
+        if (nuevaUrl && nuevoTitulo && nuevaDesc) {
           img.src = nuevaUrl;
-          img.alt = card.querySelector('.pub-title').textContent;
+          img.alt = nuevoTitulo;
+          titleElem.textContent = nuevoTitulo;
+          descElem.textContent = nuevaDesc;
         }
       }
     });
   }
-
-  // --- Gráficos con Chart.js ---
+// --- Gráficos con Chart.js ---
   const reservasBar = document.getElementById('reservasBar');
   if (reservasBar) {
     new Chart(reservasBar.getContext('2d'), {
