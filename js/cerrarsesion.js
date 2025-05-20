@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       auth.signOut()
         .then(() => {
           // Redirige a la pantalla intermedia de "Cerrando sesión..."
-          window.location.replace('cerrar.html');
+          window.location.replace('index.html');
         })
         .catch(err => {
           console.error('Error al cerrar sesión:', err);
