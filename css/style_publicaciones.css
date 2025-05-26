@@ -34,7 +34,8 @@
   font-weight: 500;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
   padding: 0.5rem;
   border-radius: 4px;
   border: 1px solid #30363D;
@@ -53,12 +54,13 @@
 }
 
 .preview-container img {
-  max-width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 6px;
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
   border: 2px solid #F9A825;
   margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.09);
 }
 
 /* Botones */
@@ -98,50 +100,126 @@
 /* Listado de publicaciones */
 .pub-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.2rem;
 }
 
 .pub-card {
   background-color: rgba(28, 33, 40, 0.8);
   border-left: 5px solid #58A6FF;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.7rem 0.9rem 0.7rem;
+  max-width: 600px;
+  min-width: 600px;
 }
 
 .pub-card img {
-  width: 100%;
-  object-fit: cover;
-  aspect-ratio: 16/9;
+  display: block;
+  margin: 0 auto 10px auto;
+  width: 500px;
+  height: 500px;
+  border-radius: 12px;
+  object-fit: cover; /* Esto recorta y centra la imagen si no es cuadrada */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+  background: #222;
+}
+
+.pub-title {
+  font-size: 1.08em;
+  color: #f5e8ff;
+  margin-bottom: 8px;
+  margin-top: 0;
+  font-weight: 600;
+  text-align: center;
+}
+
+.pub-desc {
+  font-size: 0.98em;
+  color: #d1c4e9;
+  margin-bottom: 14px;
+  text-align: center;
 }
 
 .pub-card .pub-actions {
-  padding: 0.5rem;
+  padding: 0.5rem 0 0.2rem 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
 }
 
-.pub-card .pub-actions button {
-  background: none;
+/* Mejorar botones de acción */
+.pub-card .edit {
+  background: #1e88e5;
+  color: #fff;
   border: none;
-  color: #58A6FF;
+  border-radius: 8px;
+  padding: 5px 18px;
+  font-size: 0.97em;
+  font-family: 'Montserrat', sans-serif;
   cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
   font-weight: 600;
 }
+.pub-card .edit:hover {
+  background: #3949ab;
+}
 
-.pub-card .pub-actions button:hover {
-  text-decoration: underline;
+.pub-card .delete {
+  background: #ff1744;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 18px;
+  font-size: 0.97em;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  font-weight: 600;
+}
+.pub-card .delete:hover {
+  background: #c62828;
 }
 
 /* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .pub-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pub-card {
+    max-width: 95vw;
+    min-width: unset;
+  }
+  .pub-card img,
+  .preview-container img {
+    width: 180px;
+    height: 180px;
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+}
+
 @media (max-width: 480px) {
   .form-actions {
     flex-direction: column;
   }
   .form-actions .btn {
     width: 100%;
+  }
+  .pub-list {
+    grid-template-columns: 1fr;
+  }
+  .pub-card img,
+  .preview-container img {
+    width: 96vw;
+    height: 96vw;
+    max-width: 96vw;
+    max-height: 96vw;
   }
 }

@@ -44,9 +44,13 @@
               <input type="text" id="pub-title" placeholder="Título de la publicación" required />
             </div>
             <div class="form-group">
-              <label for="pub-img-url">URL de imagen</label>
-              <input type="url" id="pub-img-url" placeholder="https://ejemplo.com/imagen.jpg" required />
+              <label for="pub-img-file" class="file-label">
+              <span class="btn-file">Seleccionar imagen</span>
+                <input type="file" id="pub-img-file" accept="image/*" required style="display:none;" />
+              </label>
+              <span id="nombre-archivo" style="display:block; color:#ccc; margin-top:5px; font-size:0.95em"></span>
             </div>
+
             <div class="form-group">
               <label for="pub-desc">Descripción</label>
               <textarea id="pub-desc" rows="2" placeholder="Descripción breve" required></textarea>
