@@ -217,9 +217,10 @@
   }
   .pub-card img,
   .preview-container img {
-    width: 66vw;
-    height: 66vw;
-    max-width: 66vw;
-    max-height: 66vw;
+    width: 180px;
+    height: 180px;
+    max-width: 85vw;
+    max-height: 180px;
   }
 }
+
