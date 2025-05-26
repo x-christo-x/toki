@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Sidebar derecho (➕) ---
   const menuBtn2 = document.getElementById('menu-toggle2');
   const sidebar2 = document.getElementById('sidebar2');
- //   Nombre Imagen
- 
+
   if (menuBtn && sidebar) {
     menuBtn.addEventListener('click', e => {
       e.stopPropagation();
@@ -33,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
   const form       = document.getElementById('pub-form');
   const titleInput = document.getElementById('pub-title');
   const fileInput  = document.getElementById('pub-img-file');
@@ -44,10 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const nombreArchivo = document.getElementById('nombre-archivo');
   fileInput.addEventListener('change', function(){
-  nombreArchivo.textContent = this.files[0] ? this.files[0].name : '';
-});
+    nombreArchivo.textContent = this.files[0] ? this.files[0].name : '';
+  });
 
-  let imagenLocal = null; // Para guardar el archivo seleccionado
+  let imagenLocal = null;
 
   if (form && titleInput && fileInput && descInput && previewImg && cancelBtn && list) {
     // Mostrar preview al elegir archivo local
@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
       previewImg.hidden = true;
       imagenLocal = null;
+      nombreArchivo.textContent = '';
     });
 
     // Crear tarjeta en el listado
@@ -111,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
       previewImg.hidden = true;
       imagenLocal = null;
+      nombreArchivo.textContent = '';
     });
 
     // Editar y Eliminar
@@ -124,30 +126,36 @@ document.addEventListener('DOMContentLoaded', () => {
         card.remove();
       }
 
-      // Editar publicación (ahora también imagen)
+      // Editar publicación con modal estilizado
       if (btn.classList.contains('edit')) {
         const titleElem = card.querySelector('.pub-title');
         const descElem = card.querySelector('.pub-desc');
         const imgElem = card.querySelector('img');
 
-        // 1. Crear un formulario "modal" sencillo al vuelo
+        // --- MODAL PRO ---
         const modal = document.createElement('div');
-        modal.style.position = 'fixed';
-        modal.style.left = '0'; modal.style.top = '0';
-        modal.style.width = '100vw'; modal.style.height = '100vh';
-        modal.style.background = 'rgba(0,0,0,0.7)';
-        modal.style.display = 'flex'; modal.style.alignItems = 'center'; modal.style.justifyContent = 'center';
-        modal.style.zIndex = '2000';
+        modal.className = 'modal-edit-pub';
 
         modal.innerHTML = `
-          <div style="background: #222; padding: 2rem; border-radius: 12px; min-width: 300px; color: #fff; text-align:left;">
+          <div class="modal-content-edit">
             <h3>Editar publicación</h3>
-            <label>Título<br><input type="text" id="edit-titulo" value="${titleElem.textContent}" style="width: 100%;"></label><br><br>
-            <label>Descripción<br><textarea id="edit-desc" rows="2" style="width: 100%;">${descElem.textContent}</textarea></label><br><br>
-            <label>Imagen<br><input type="file" id="edit-img" accept="image/*"></label><br>
-            <img id="edit-preview" src="${imgElem.src}" style="max-width: 100%; margin: 10px 0;"><br>
-            <button id="guardarEdicion">Guardar</button>
-            <button id="cancelarEdicion" style="margin-left:1rem;">Cancelar</button>
+            <label class="form-group">Título
+              <input type="text" id="edit-titulo" value="${titleElem.textContent}" class="input-edit" />
+            </label>
+            <label class="form-group">Descripción
+              <textarea id="edit-desc" rows="2" class="input-edit">${descElem.textContent}</textarea>
+            </label>
+            <label class="form-group">Imagen
+              <input type="file" id="edit-img" accept="image/*" class="input-edit" />
+            </label>
+            <div class="preview-container" style="margin-bottom:1.2rem;">
+              <span style="color:#C9D1D9;font-size:0.93em;">Vista previa:</span>
+              <img id="edit-preview" src="${imgElem.src}" alt="Preview" />
+            </div>
+            <div class="form-actions modal-actions">
+              <button id="guardarEdicion" class="btn guardar">Guardar</button>
+              <button id="cancelarEdicion" class="btn cancelar">Cancelar</button>
+            </div>
           </div>
         `;
         document.body.appendChild(modal);
@@ -200,11 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.querySelector('#cancelarEdicion').onclick = () => {
           document.body.removeChild(modal);
         };
+
+        // Cerrar modal al hacer clic fuera del contenido
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            document.body.removeChild(modal);
+          }
+        });
       }
     });
   }
 
-// --- Gráficos con Chart.js ---
+  // --- Gráficos con Chart.js ---
   const reservasBar = document.getElementById('reservasBar');
   if (reservasBar) {
     new Chart(reservasBar.getContext('2d'), {
@@ -257,5 +272,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  // ...
 });
