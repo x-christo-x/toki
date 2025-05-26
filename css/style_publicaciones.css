@@ -188,20 +188,20 @@
 }
 
 /* === RESPONSIVE === */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .pub-list {
     grid-template-columns: 1fr 1fr;
   }
   .pub-card {
-    max-width: 95vw;
+    max-width: 65vw;
     min-width: unset;
   }
   .pub-card img,
   .preview-container img {
     width: 180px;
     height: 180px;
-    max-width: 90vw;
-    max-height: 90vw;
+    max-width: 60vw;
+    max-height: 60vw;
   }
 }
 
@@ -217,9 +217,9 @@
   }
   .pub-card img,
   .preview-container img {
-    width: 96vw;
-    height: 96vw;
-    max-width: 96vw;
-    max-height: 96vw;
+    width: 66vw;
+    height: 66vw;
+    max-width: 66vw;
+    max-height: 66vw;
   }
 }
