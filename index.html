@@ -1,36 +1,199 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Iniciar Sesión</title>
-  <!-- CSS base -->
-  <link rel="stylesheet" href="css/style.css" />
-  <!-- CSS específico de login -->
-  <link rel="stylesheet" href="css/login.css" />
-  <!-- JS de login -->
-     <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
-  <script src="js/login.js" defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TazaStudio — Diseña tazas 360°</title>
+  <meta name="description" content="Plataforma para crear diseños de tazas: plantillas, texto y colores. Visualización 360°." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;               /* fondo profundo */
+      --panel: rgba(255,255,255,.08);/* cristal */
+      --text: #e6e9f5;             /* texto base */
+      --muted:#9aa3b2;             /* texto secundario */
+      --accent1:#8b5cf6;           /* violeta */
+      --accent2:#22d3ee;           /* cian */
+      --danger:#ef4444;            /* rojo "Go" */
+      --ring: 0 10px 30px rgba(139,92,246,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(34,211,238,.10) 0%, transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(139,92,246,.12) 0%, transparent 60%),
+        linear-gradient(180deg, #0e1326 0%, var(--bg) 60%);
+      min-height:100%;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:var(--ring)}
+    .title{font-weight:800;letter-spacing:.3px}
+    .nav a{opacity:.85;margin-left:18px}
+
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:40px 0}
+    .hero h1{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 24px}
+    .cta{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:14px;font-weight:700;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03));backdrop-filter:blur(8px);transition:transform .15s ease, box-shadow .2s ease, background .2s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(34,211,238,.15)}
+    .btn.primary{background:linear-gradient(135deg, var(--accent1), var(--accent2));border-color:transparent;box-shadow:var(--ring)}
+
+    .panel{
+      background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:20px;backdrop-filter:blur(10px);
+      box-shadow:0 10px 40px rgba(0,0,0,.35);
+    }
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+
+    .card{padding:22px;position:relative;overflow:hidden}
+    .card h3{margin:0 0 8px}
+    .card p{margin:6px 0 16px;color:var(--muted)}
+
+    /* Video card */
+    .playwrap{display:grid;place-items:center;height:180px;border-radius:16px;background:radial-gradient(400px 200px at 50% 0%, rgba(139,92,246,.18), transparent 60%),linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));border:1px dashed rgba(255,255,255,.16)}
+    .play{width:70px;height:70px;border-radius:50%;background:conic-gradient(from 200deg,var(--accent2),var(--accent1));display:grid;place-items:center;box-shadow:var(--ring);cursor:pointer}
+    .play:after{content:"";border-left:16px solid white;border-top:10px solid transparent;border-bottom:10px solid transparent;margin-left:4px}
+
+    /* Go card */
+    .go{display:grid;place-items:center;height:180px;border-radius:16px;border:1px dashed rgba(255,255,255,.16);background:radial-gradient(420px 220px at 50% 0%, rgba(34,211,238,.15), transparent 60%),linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))}
+    .go .circle{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(closest-side, var(--danger), #b91c1c);box-shadow:0 12px 40px rgba(239,68,68,.35);font-weight:800;font-size:22px}
+
+    .list{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+
+    /* Footer mini */
+    footer{margin-top:42px;padding:18px 0;color:#8a93a7;font-size:14px;border-top:1px solid rgba(255,255,255,.08)}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(5,8,18,.65);z-index:40}
+    .modal.open{display:grid}
+    .modal-card{width:min(880px,92vw);max-height:85vh;overflow:auto}
+    .modal-card .inner{padding:22px}
+    .modal h2{margin:0}
+    .modal .steps{display:grid;gap:12px;margin-top:14px}
+    .pill{display:inline-block;padding:2px 10px;border-radius:999px;background:linear-gradient(135deg, var(--accent1), var(--accent2));font-size:12px;margin-bottom:10px}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      .go,.playwrap{height:160px}
+    }
+  </style>
 </head>
 <body>
-  <main class="login-container">
-    <div class="login-card">
-      <img src="https://i.imgur.com/MWbctWP_d.png?maxwidth=520&shape=thumb&fidelity=high" alt="Logo" class="login-logo"/>
-      <h2>Iniciar Sesión</h2>
-      <form id="login-form">
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">TazaStudio</div>
+      </div>
+      <nav class="nav" aria-label="principal">
+        <a href="#features">Funciones</a>
+        <a href="#como">Cómo usar</a>
+        <a href="#empezar" class="btn primary" style="padding:8px 14px">Empezar</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="pill">Sublimación & Estampados</div>
+        <h1>Diseña tazas en 360° con plantillas, texto y colores profesionales</h1>
+        <p>Crea diseños listos para sublimar en minutos. Previsualiza la taza en 3D, agrega tu plantilla, escribe texto con tipografías modernas y ajusta colores de la taza y del diseño.</p>
+        <div class="cta">
+          <a id="openHow" class="btn" href="#como">¿Cómo usar?</a>
+          <a class="btn primary" id="empezarBtn" href="edicion.html">Empezar ahora</a>
         </div>
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="••••••••" required />
+      </div>
+      <div class="panel" style="padding:18px">
+        <!-- Mockup del área de vista (referencia del wireframe) -->
+        <div class="panel" style="padding:18px; border-radius:16px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="flex:0 0 140px;height:140px;border-radius:14px;background:radial-gradient(120px 80px at 50% 40%, rgba(255,255,255,.18), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;font-size:14px;color:var(--muted)">Vista 3D</div>
+            <div style="display:grid;gap:8px">
+              <div style="font-weight:700">Paleta de colores</div>
+              <div style="display:flex;gap:6px">
+                <span style="width:22px;height:22px;border-radius:6px;background:#ffffff;border:1px solid rgba(255,255,255,.18)" title="Blanco"></span>
+                <span style="width:22px;height:22px;border-radius:6px;background:#1f2937" title="Grafito"></span>
+                <span style="width:22px;height:22px;border-radius:6px;background:#d946ef" title="Magenta"></span>
+                <span style="width:22px;height:22px;border-radius:6px;background:#22d3ee" title="Cian"></span>
+                <span style="width:22px;height:22px;border-radius:6px;background:#f59e0b" title="Ámbar"></span>
+              </div>
+              <div style="display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:center;margin-top:6px">
+                <span style="opacity:.8">Texto</span>
+                <input aria-label="texto" placeholder="INGRESAR" style="padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--text)" />
+              </div>
+              <button class="btn" style="width:max-content">GUARDAR</button>
+            </div>
+          </div>
         </div>
-        <button type="submit" class="btn login">Ingresar</button>
-      </form>
+        <ul class="list">
+          <li>Rotación 360° con el mouse (edición)</li>
+          <li>3 plantillas base y opción de cargar imagen</li>
+          <li>Color de taza y del diseño personalizables</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="cards">
+        <article class="card panel" id="como">
+          <h3>¿Cómo usar?</h3>
+          <p>Haz clic en el botón y mira una guía rápida (1 minuto) para empezar.</p>
+          <div class="playwrap"><button class="play" id="openModal" aria-label="Ver guía"></button></div>
+        </article>
+
+        <article class="card panel" id="empezar">
+          <h3>Empezar</h3>
+          <p>Abre el editor en 360° y comienza a personalizar tu taza.</p>
+          <div class="go">
+            <a class="circle" href="edicion.html" aria-label="Ir al editor">Go</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> TazaStudio · Hecho con ❤ para sublimación profesional
+    </footer>
+  </div>
+
+  <!-- Modal simple de ayuda -->
+  <div class="modal" id="modal">
+    <div class="modal-card panel">
+      <div class="inner">
+        <h2>Guía rápida</h2>
+        <div class="steps">
+          <div><strong>1.</strong> En <em>Empezar</em> irás a <code>edicion.html</code>, donde verás la taza 3D (rotación 360°).</div>
+          <div><strong>2.</strong> Elige <em>Color de taza</em> desde la paleta y aplica con un clic.</div>
+          <div><strong>3.</strong> Selecciona una de las <em>3 plantillas</em> (rayas, puntos, estrellas) o carga tu imagen.</div>
+          <div><strong>4.</strong> Agrega <em>Texto</em>, cambia fuente/tamaño y arrástralo sobre la taza.</div>
+          <div><strong>5.</strong> Presiona <em>Guardar</em> para exportar tu diseño listo para sublimar.</div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn" id="closeModal">Cerrar</button>
+          <a class="btn primary" href="edicion.html">Ir al editor</a>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
+
+  <script>
+    const modal = document.getElementById('modal');
+    const openModal = document.getElementById('openModal');
+    const openHow = document.getElementById('openHow');
+    const closeModal = document.getElementById('closeModal');
+    const empezarBtn = document.getElementById('empezarBtn');
+
+    [openModal, openHow].forEach(btn=>btn && btn.addEventListener('click', (e)=>{ e.preventDefault(); modal.classList.add('open'); }))
+    closeModal.addEventListener('click', ()=> modal.classList.remove('open'));
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.remove('open'); });
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

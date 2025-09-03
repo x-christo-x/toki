@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TazaStudio — Editor 3D (360°)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg: #0b1020;
+  --panel: rgba(255,255,255,.08);
+  --text: #e6e9f5;
+  --muted:#9aa3b2;
+  --accent1:#8b5cf6;
+  --accent2:#22d3ee;
+  --ring: 0 10px 30px rgba(139,92,246,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; background: var(--bg); color: var(--text); font-family: 'Montserrat', sans-serif;}
+a{color:inherit; text-decoration:none;}
+.container{max-width:1200px; margin:0 auto; padding:20px;}
+header{display:flex; align-items:center; gap:14px; margin-bottom:14px;}
+.logo{width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--accent1),var(--accent2)); box-shadow:var(--ring);}
+.title{font-weight:800; letter-spacing:.3px;}
+.wrap{display:grid; grid-template-columns:1.50fr .75fr; gap:18px;}
+.panel{background:var(--panel); border:1px solid rgba(255,255,255,.12); border-radius:20px; backdrop-filter:blur(10px); box-shadow:0 10px 40px rgba(0,0,0,.35);}
+#stage{position:relative; min-height:520px;}
+#three{width:100%; height:100%; display:block; border-radius:20px;}
+.hud{position:absolute; inset:auto 14px 14px auto; display:flex; gap:8px;}
+.hud .btn{padding:8px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); backdrop-filter:blur(8px); cursor:pointer;}
+.controls{padding:16px;}
+.controls h3{margin:0 0 10px;}
+.group{margin-bottom:14px;}
+.group label{display:block; font-size:13px; color:var(--muted); margin-bottom:6px;}
+.row{display:flex; gap:8px; flex-wrap:wrap;}
+input[type="color"], input[type="range"], input[type="text"], select, button{
+  background:rgba(255,255,255,.07); color:var(--text); border:1px solid rgba(255,255,255,.14);
+  border-radius:12px; padding:10px 12px; outline:none;
+}
+input[type="color"]{padding:0; width:44px; height:36px;}
+input[type="range"]{width:180px;}
+button{cursor:pointer;}
+.btn-primary{background:linear-gradient(135deg, var(--accent1), var(--accent2)); border-color:transparent; box-shadow:var(--ring); font-weight:700;}
+.templates{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+.radio{display:flex; align-items:center; gap:8px; padding:10px; border:1px solid rgba(255,255,255,.12); border-radius:12px;}
+.footer{display:flex; justify-content:space-between; align-items:center; margin-top:10px; color:var(--muted); padding:10px 16px;}
+@media (max-width: 980px){
+  .wrap{grid-template-columns:1fr;}
+  #stage{min-height:460px;}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo" aria-hidden="true"></div>
+    <div class="title">TazaStudio — Editor 3D</div>
+    <div style="margin-left:auto"><a href="index.html">Volver a inicio</a></div>
+  </header>
+
+  <section class="wrap">
+    <!-- Escena 3D -->
+    <div id="stage" class="panel">
+      <canvas id="three"></canvas>
+      <div class="hud">
+        <button id="btnReset" class="btn">Reset vista</button>
+        <button id="btnSpin" class="btn">Auto-rotar</button>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <aside class="panel controls" aria-label="Controles de edición">
+      <h3>Personaliza tu taza</h3>
+
+      <div class="group">
+        <label>Color de la taza</label>
+        <div class="row">
+          <input id="cupColor" type="color" value="#ffffff" title="Color de la taza">
+        </div>
+      </div>
+
+      <div class="group">
+        <label>Plantillas (elige una)</label>
+        <div class="templates">
+          <label class="radio"><input type="radio" name="tpl" value="stripes" checked> Rayas</label>
+          <label class="radio"><input type="radio" name="tpl" value="dots"> Puntos</label>
+          <label class="radio"><input type="radio" name="tpl" value="stars"> Estrellas</label>
+          <label class="radio"><input type="radio" name="tpl" value="image"> Imagen propia</label>
+        </div>
+        <div class="row" style="margin-top:8px">
+          <input id="imgInput" type="file" accept="image/*" style="flex:1">
+          <label style="display:flex;align-items:center;gap:8px"><span>Escala</span><input id="imgScale" type="range" min="20" max="200" value="100"></label>
+        </div>
+      </div>
+
+      <div class="group">
+        <label>Colores de diseño</label>
+        <div class="row">
+          <div>
+            <span style="font-size:12px;color:var(--muted)">Primario</span><br>
+            <input id="designPrimary" type="color" value="#111827">
+          </div>
+          <div>
+            <span style="font-size:12px;color:var(--muted)">Secundario</span><br>
+            <input id="designSecondary" type="color" value="#22d3ee">
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <label>Texto</label>
+        <div class="row">
+          <input id="txt" type="text" placeholder="Escribe aquí" value="Mi Taza" style="min-width:220px">
+          <input id="txtColor" type="color" value="#ffffff" title="Color de texto">
+        </div>
+        <div class="row" style="margin-top:8px">
+          <label style="display:flex;align-items:center;gap:8px"><span>Tamaño</span><input id="txtSize" type="range" min="14" max="120" value="56"></label>
+          <label style="display:flex;align-items:center;gap:8px"><span>Pos X</span><input id="txtX" type="range" min="0" max="100" value="50"></label>
+          <label style="display:flex;align-items:center;gap:8px"><span>Pos Y</span><input id="txtY" type="range" min="0" max="100" value="55"></label>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="row">
+          <button id="btnExportDesign" class="btn-primary">Descargar diseño (PNG)</button>
+          <button id="btnExportView">Descargar vista 3D</button>
+        </div>
+      </div>
+
+      <div class="footer">
+        <small>Consejo: arrastra para rotar, rueda para zoom.</small>
+        <a href="index.html">Volver</a>
+      </div>
+    </aside>
+  </section>
+</div>
+<!-- Three.js (sin módulos) -->
+<script src="https://unpkg.com/three@0.162.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.162.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.162.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<script>
+/* ========= UI ========= */
+const cupColorEl       = document.getElementById('cupColor');
+const tplRadios        = Array.from(document.querySelectorAll('input[name="tpl"]'));
+const imgInput         = document.getElementById('imgInput');
+const imgScaleEl       = document.getElementById('imgScale');
+const txtEl            = document.getElementById('txt');
+const txtColorEl       = document.getElementById('txtColor');
+const txtSizeEl        = document.getElementById('txtSize');
+const txtXEl           = document.getElementById('txtX');
+const txtYEl           = document.getElementById('txtY');
+const btnExportDesign  = document.getElementById('btnExportDesign');
+const btnExportView    = document.getElementById('btnExportView');
+const btnReset         = document.getElementById('btnReset');
+const btnSpin          = document.getElementById('btnSpin');
+
+/* ========= Render / Escena ========= */
+const canvas   = document.getElementById('three');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.set(2.6, 1.4, 2.6);
+
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.enablePan = false;
+controls.target.set(0, 0.55, 0);
+
+/* Luces sencillas */
+scene.add(new THREE.HemisphereLight(0xffffff, 0x334455, 0.9));
+const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+dir.position.set(3,4,2); scene.add(dir);
+
+/* Suelo */
+const floor = new THREE.Mesh(
+  new THREE.CircleGeometry(2.2, 64),
+  new THREE.MeshStandardMaterial({ color:0x0f152c, roughness:1 })
+);
+floor.rotation.x = -Math.PI/2; scene.add(floor);
+
+/* ========= Canvas del DISEÑO (envolvente) ========= */
+const designCanvas = document.createElement('canvas');
+designCanvas.width = 2048;                 // 2K: suficiente para preview nitida
+designCanvas.height = 1024;
+const ctx = designCanvas.getContext('2d');
+let uploadedImg = null;
+
+const wrapTexture = new THREE.CanvasTexture(designCanvas);
+wrapTexture.wrapS = THREE.RepeatWrapping;
+wrapTexture.wrapT = THREE.ClampToEdgeWrapping;
+wrapTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+/* Dibuja el diseño actual en el canvas */
+function currentTpl(){ return (tplRadios.find(x => x.checked)?.value) || 'stripes'; }
+
+function drawDesign(){
+  const w = designCanvas.width, h = designCanvas.height;
+  // Fondo = color de la taza
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = cupColorEl.value;
+  ctx.fillRect(0,0,w,h);
+
+  // Plantillas
+  ctx.save();
+  ctx.globalAlpha = 0.9;
+  ctx.fillStyle = '#22d3ee';             // color patrón (puedes exponer otro <input> si quieres)
+  const type = currentTpl();
+
+  if(type==='stripes'){
+    const stripeH = 60;
+    for(let y=0; y<h; y+=stripeH*2) ctx.fillRect(0,y,w,stripeH);
+  } else if(type==='dots'){
+    const step=90, r=14; ctx.beginPath();
+    for(let y=step/2; y<h; y+=step) for(let x=step/2; x<w; x+=step){ ctx.moveTo(x+r,y); ctx.arc(x,y,r,0,Math.PI*2); }
+    ctx.fill();
+  } else if(type==='stars'){
+    const step=150, R=20, r=8;
+    const star=(cx,cy)=>{ ctx.beginPath();
+      for(let i=0;i<10;i++){ const a=i*Math.PI/5; const rad=i%2? r : R; ctx.lineTo(cx+Math.cos(a)*rad, cy+Math.sin(a)*rad); }
+      ctx.closePath(); ctx.fill();
+    };
+    for(let y=step/2; y<h; y+=step) for(let x=step/2; x<w; x+=step) star(x,y);
+  }
+  ctx.restore();
+
+  // Imagen propia (si eliges “Imagen propia”)
+  if(currentTpl()==='image' && uploadedImg){
+    const sc = Number(imgScaleEl.value)/100;
+    const iw = uploadedImg.width*sc, ih = uploadedImg.height*sc;
+    ctx.drawImage(uploadedImg, (w-iw)/2, (h-ih)/2, iw, ih);
+  }
+
+  // Texto
+  const text = (txtEl.value||'').trim();
+  if(text){
+    const size = Number(txtSizeEl.value);
+    ctx.font = `bold ${size}px Montserrat, sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    const px = w*(Number(txtXEl.value)/100), py = h*(Number(txtYEl.value)/100);
+    ctx.strokeStyle='rgba(0,0,0,.35)'; ctx.lineWidth=Math.max(2,size*0.06);
+    ctx.strokeText(text, px, py);
+    ctx.fillStyle = txtColorEl.value;
+    ctx.fillText(text, px, py);
+  }
+
+  wrapTexture.needsUpdate = true;
+}
+
+/* ========= Contenedor del modelo ========= */
+const mugRoot = new THREE.Group(); scene.add(mugRoot);
+
+/* ========= Carga GLB =========
+   IMPORTANTE: sirve el archivo por http(s). Con file:// fallará por CORS.
+   Cambia la ruta a la tuya (ej.: './taza.glb' o '/models/mug.glb').            */
+new THREE.GLTFLoader().load(
+  'taza.glb',
+  (gltf) => {
+    const root = gltf.scene;
+    // Sombra/opciones
+    root.traverse(o => { if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; }});
+
+    // Centrado + escala a altura ≈ 1.1
+    const box = new THREE.Box3().setFromObject(root);
+    const size = new THREE.Vector3(); box.getSize(size);
+    const center = new THREE.Vector3(); box.getCenter(center);
+    const targetH = 1.1;
+    const s = targetH / Math.max(0.0001, size.y);
+    root.position.sub(center);         // centra en origen
+    root.scale.setScalar(s);
+    root.position.y = targetH/2;       // apoya en el “suelo”
+
+    // Aplica textura del diseño al cuerpo
+    applyDesignToBody(root, wrapTexture);
+
+    mugRoot.add(root);
+    drawDesign();
+    console.log('GLB listo. Meshes:'); root.traverse(o => { if(o.isMesh) console.log(o.name); });
+  },
+  undefined,
+  (e)=>console.error('Error GLB:', e)
+);
+
+/* ====== Aplica textura al “cuerpo” ======
+   1) si detecta un nombre típico (Body/Cup/etc.), lo usa.
+   2) si no, toma el mesh de MAYOR volumen (suele ser el cuerpo).               */
+function applyDesignToBody(root, texture){
+  const BODY_HINTS = ['body','cup','cuerpo','taza','mug'];
+  let target = null;
+
+  root.traverse(o=>{
+    if(o.isMesh){
+      const name = (o.name||'').toLowerCase();
+      if(BODY_HINTS.some(k=>name.includes(k))) target = o;
+    }
+  });
+
+  if(!target){
+    // fallback: mayor volumen de bounding box
+    let bestVol = -1;
+    root.traverse(o=>{
+      if(o.isMesh){
+        const b = new THREE.Box3().setFromObject(o);
+        const s = new THREE.Vector3(); b.getSize(s);
+        const vol = s.x*s.y*s.z;
+        if(vol>bestVol){ bestVol = vol; target = o; }
+      }
+    });
+  }
+
+  if(!target){ console.warn('No encontré mesh destino.'); return; }
+
+  // UVs: si no trae, hacemos cilíndricas
+  if(!target.geometry.attributes.uv){
+    applyCylindricalUVs(target.geometry);
+  }
+
+  // Material “porcelana” con map = canvas
+  const mat = new THREE.MeshStandardMaterial({ color: 0xffffff, map: texture, roughness: 0.35 });
+  target.material = mat;
+}
+
+/* UVs cilíndricas de emergencia (para modelos sin UV) */
+function applyCylindricalUVs(geometry){
+  geometry.computeBoundingBox();
+  const pos = geometry.attributes.position;
+  const count = pos.count;
+  const uvs = new Float32Array(count*2);
+  const v3 = new THREE.Vector3();
+
+  let minY=Infinity, maxY=-Infinity;
+  for(let i=0;i<count;i++){ v3.fromBufferAttribute(pos,i); if(v3.y<minY)minY=v3.y; if(v3.y>maxY)maxY=v3.y; }
+  const H = Math.max(1e-6, maxY-minY);
+
+  for(let i=0;i<count;i++){
+    v3.fromBufferAttribute(pos,i);
+    const angle = Math.atan2(v3.z, v3.x);          // -PI..PI
+    const u = (angle + Math.PI) / (2*Math.PI);     // 0..1
+    const v = (v3.y - minY) / H;                   // 0..1
+    uvs[i*2] = u; uvs[i*2+1] = v;
+  }
+  geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+}
+
+/* ========= Eventos ========= */
+[cupColorEl, txtEl, txtColorEl, txtSizeEl, txtXEl, txtYEl, imgScaleEl].forEach(el=>el.addEventListener('input', drawDesign));
+tplRadios.forEach(r => r.addEventListener('change', drawDesign));
+
+imgInput.addEventListener('change', async (e)=>{
+  const f = e.target.files?.[0]; if(!f) return;
+  try{ uploadedImg = await createImageBitmap(f); } 
+  catch{
+    const img = new Image(); img.onload=()=>{ uploadedImg=img; drawDesign(); };
+    img.src = URL.createObjectURL(f); return;
+  }
+  drawDesign();
+});
+
+btnExportDesign.addEventListener('click', ()=>{
+  drawDesign();
+  const a = document.createElement('a');
+  a.download = 'diseno_taza.png';
+  a.href = designCanvas.toDataURL('image/png');
+  a.click();
+});
+
+btnExportView.addEventListener('click', ()=>{
+  controls.update(); renderer.render(scene, camera);
+  const a = document.createElement('a');
+  a.download = 'taza_3d.png';
+  a.href = renderer.domElement.toDataURL('image/png');
+  a.click();
+});
+
+btnReset.addEventListener('click', ()=>{
+  camera.position.set(2.6,1.4,2.6);
+  controls.target.set(0,0.55,0); controls.update();
+});
+
+let spin=false;
+btnSpin.addEventListener('click', ()=>{ spin=!spin; btnSpin.textContent = spin ? 'Detener' : 'Auto-rotar'; });
+
+/* ========= Resize & Loop ========= */
+function resize(){
+  const stage = document.getElementById('stage').getBoundingClientRect();
+  const w = Math.max(320, stage.width|0), h = Math.max(360, stage.height|0);
+  renderer.setSize(w, h, false);
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize); resize();
+
+function animate(){
+  requestAnimationFrame(animate);
+  if(spin) mugRoot.rotation.y += 0.008;
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+/* Arranque */
+drawDesign();
+animate();
+</script>
+</body>
+</html>
